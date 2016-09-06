@@ -20,13 +20,13 @@ class TrackableServiceProvider extends ServiceProvider {
 	{
     $this->publishes([
       __DIR__.'/../../publish/config/trackable.php' => config_path('trackable.php'),
+      __DIR__.'/../../publish/migrations' => database_path('migrations'),
     ]);
     if (! $this->app->routesAreCached())
     {
       require __DIR__.'/routes.php';
     }
     $this->loadViewsFrom(__DIR__.'/views', 'trackable');
-    $this->loadMigrationsFrom(__DIR__.'/../../publish/migrations');
 	}
 
 	/**

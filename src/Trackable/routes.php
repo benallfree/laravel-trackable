@@ -1,6 +1,4 @@
 <?php
-use \BenAllfree\Trackable\Models\Action;
-
 
 Route::group(['middleware'=>'web', 'as'=>'trackable.', 'prefix'=>'trackable'], function() {
   Route::get('trackable.js', ['as'=>'js', function() {
@@ -17,7 +15,7 @@ Route::group(['middleware'=>'web', 'as'=>'trackable.', 'prefix'=>'trackable'], f
   }]);
   
   Route::post('leave', ['as'=>'leave', function() {
-    $h = Action::find(request()->input('h'));
+    $h = \Action::find(request()->input('h'));
     if(!$h)
     {
       return response()

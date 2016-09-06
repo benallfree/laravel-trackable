@@ -13,7 +13,7 @@ class Contact extends Model
 
   function metas()
   {
-    return $this->hasMany(ContactMeta::class);
+    return $this->hasMany(\ContactMeta::class);
   }
   
   function currentMetas()
@@ -21,24 +21,57 @@ class Contact extends Model
     return $this->metas()->whereIsCurrent(true);
   }
   
-  function meta($meta_key)
+  function meta($meta_key, $meta_value=null)
   {
-    if(isset($this->_metas[$meta_key])) return $this->_metas[$meta_key];
-    $m = $this->metas()->whereKey($meta_key)->whereIsCurrent(true)->first();
-    if(!$m)
+    if(is_array($meta_key))
     {
-      return $this->_metas[$meta_key] = null;
+      foreach($meta_key as $k=>$v)
+      {
+        $this->meta($k, $v);
+      }
+      return $meta_key;
     }
-    return $this->_metas[$meta_key] = $m->value;
+    
+    // Get the meta value
+    if($meta_value===null)
+    {
+      if(isset($this->_metas[$meta_key])) return $this->_metas[$meta_key];
+      $m = $this->currentMetas()->whereKey($meta_key)->first();
+      if(!$m)
+      {
+        return $this->_metas[$meta_key] = null;
+      }
+      return $this->_metas[$meta_key] = $m->value;
+    }
+    
+    // Set the meta value
+    if($this->meta($meta_key)==$meta_value) return $meta_value;
+    $this->currentMetas()->whereKey($meta_key)->update(['is_current'=>false]);
+    $m = \ContactMeta::create([
+      'contact_id'=>$this->id, 
+      'key'=>$meta_key, 
+      'value'=>$meta_value,
+      'is_current'=>true,
+    ]);
+    $this->_metas[$meta_key] = $m;
+    return $m->value;
   }
   
   static function findByMeta($key, $value)
   {
-    $m = ContactMeta::whereKey($key)->whereValue($value)->whereIsCurrent(true)->first();
+    $m = \ContactMeta::whereKey($key)->whereValue($value)->whereIsCurrent(true)->first();
     if(!$m) return null;
     $c = $m->contact;
     return $c;
   }
+  
+  function toArray()
+  {
+    $data = $this->currentMetas()->get()->pluck('value', 'key')->toArray();
+    $data['id'] = $this->id;
+    return $data;
+  }
+  
   
   function getEmailAttribute()
   {
@@ -65,7 +98,7 @@ class Contact extends Model
   
   function goal($event_name, $data = [])
   {
-    return Action::goal($this->id, $event_name, $data);
+    return \Action::goal($this->id, $event_name, $data);
   }
   
 }

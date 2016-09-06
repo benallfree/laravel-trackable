@@ -4,11 +4,9 @@ namespace BenAllfree\Trackbale\Middleware;
 
 use Closure;
 
-use App\Helpers\Site;
-use App\Domain;
-use App\Contact;
-use App\Variation;
-use App\Helpers\Visitor;
+use BenAllfree\Trackable\Helpers\Site;
+use BenAllfree\Trackable\Models\Contact;
+use BenAllfree\Trackable\Helpers\Visitor;
 
 class InitializeContact
 {

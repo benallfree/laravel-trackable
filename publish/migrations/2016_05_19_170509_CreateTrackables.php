@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAll extends Migration
+class CreateTrackables extends Migration
 {
     /**
      * Run the migrations.
@@ -12,6 +12,13 @@ class CreateAll extends Migration
      */
     public function up()
     {
+      Schema::create('sites', function (Blueprint $table) {
+          $table->increments('id');
+          $table->string('host');
+          $table->timestamps();
+          $table->index('host');
+      });
+
         Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('site_id')->nullable();

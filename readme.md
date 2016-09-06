@@ -1,6 +1,12 @@
 # Trackable
 
-# Installation
+Trackable uses Drip-style contact tracking and hit logging. Trackable uses cookies to track time on page and unique user activity so you can ask complicated questions like "which of my users has read my article?" or "how long have my registered users spent on page B after reading page A?"
+
+## Installation
+
+In your main view, include:
+
+    <script src="{{route('trackable.js')}}"></script>
 
 In `app/config.php`:
 
@@ -21,7 +27,7 @@ And optionally alias the models:
       'Visitor'=> \BenAllfree\Trackable\Models\ActionMeta::class,
     ]
 
-In `app/Http/Kernel.php`:
+In `app/Http/Kernel.php`, add a middleware group:
 
 
     protected $middlewareGroups = [
@@ -31,8 +37,14 @@ In `app/Http/Kernel.php`:
       ],
     ];
 
-Then in `app/routes/web.php` (or wherever):
+Then use the middleware, such as in `app/routes/web.php`:
 
     Route::group(['middleware'=>'trackable'], function() {
       ...any routes you want tracked...
     });
+    
+## Registering actions and goals
+
+If you want to record a goal for a contact:
+
+    Visitor::get()->goal('some-goal-name', ['meta'=>'data']);

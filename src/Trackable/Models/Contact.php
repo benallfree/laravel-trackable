@@ -65,7 +65,7 @@ class Contact extends Model
   
   function goal($event_name, $data = [])
   {
-    Action::goal($this->id, $event_name, $data);
+    return Action::goal($this->id, $event_name, $data);
   }
   
 }

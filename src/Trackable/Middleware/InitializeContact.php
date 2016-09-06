@@ -1,6 +1,6 @@
 <?php
 
-namespace BenAllfree\Trackbale\Middleware;
+namespace BenAllfree\Trackable\Middleware;
 
 use Closure;
 

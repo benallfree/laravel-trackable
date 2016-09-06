@@ -1,10 +1,10 @@
 <?php
 
-namespace BenAllfree\Trackbale\Middleware;
+namespace BenAllfree\Trackable\Middleware;
 
 use Closure;
 
-use BenAllfree\Trackable\Models\Action;
+use BenAllfree\Trackable\Helpers\Visitor;
 
 class LogHit
 {
@@ -17,9 +17,9 @@ class LogHit
      */
     public function handle($request, Closure $next)
     {
-      $h = Action::goal('hit');
-      session(['hit_id'=>$h->id]);      
-      
+      $h = Visitor::get()->goal('hit');
+      $s = app('session');
+      $s->set('hit_id', $h->id);
       return $next($request);
     }
 }

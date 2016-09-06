@@ -1,0 +1,38 @@
+{
+  "name": "timeme.js",
+  "main": "timeme.js",
+  "version": "1.2.0",
+  "homepage": "https://github.com/jasonzissman/TimeMe.js",
+  "authors": [
+    "Jason Zissman"
+  ],
+  "description": "A utility to time how long a user interacts with a page, disregarding time spent on other tabs, minimized, or idle time.",
+  "keywords": [
+    "HTML5",
+    "visibility"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ifvisible.js": "~1.0.4"
+  },
+  "devDependencies": {
+    "qunit": "~1.20.0"
+  },
+  "_release": "1.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.0",
+    "commit": "6661ac3bc6a1776b275a593c1e3018e2c808250d"
+  },
+  "_source": "https://github.com/jasonzissman/TimeMe.js.git",
+  "_target": "^1.2.0",
+  "_originalSource": "timeme.js",
+  "_direct": true
+}

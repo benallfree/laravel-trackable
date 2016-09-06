@@ -2,9 +2,9 @@
 
 namespace BenAllfree\Trackable\Helpers;
 
-use  BenAllfree\Trackable\Contact;
-use  BenAllfree\Trackable\ContactMeta;
-use  BenAllfree\Trackable\Action;
+use  BenAllfree\Trackable\Models\Contact;
+use  BenAllfree\Trackable\Models\ContactMeta;
+use  BenAllfree\Trackable\Models\Action;
 
 class Visitor 
 {

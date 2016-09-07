@@ -22,7 +22,7 @@ class Action extends Model
     ]);
     foreach($data as $k=>$v)
     {
-      ActionMeta::create([
+      \ActionMeta::create([
         'action_id'=>$a->id,
         'key'=>$k,
         'value'=>$v,

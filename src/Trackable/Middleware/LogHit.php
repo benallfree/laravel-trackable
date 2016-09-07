@@ -4,8 +4,6 @@ namespace BenAllfree\Trackable\Middleware;
 
 use Closure;
 
-use BenAllfree\Trackable\Helpers\Visitor;
-
 class LogHit
 {
     /**
@@ -17,9 +15,8 @@ class LogHit
      */
     public function handle($request, Closure $next)
     {
-      $h = Visitor::get()->goal('hit');
-      $s = app('session');
-      $s->set('hit_id', $h->id);
+      $h = \Visitor::goal('hit');
+      session(['hit_id'=>$h->id]);
       return $next($request);
     }
 }

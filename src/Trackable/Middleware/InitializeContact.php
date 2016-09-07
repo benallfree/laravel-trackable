@@ -4,10 +4,6 @@ namespace BenAllfree\Trackable\Middleware;
 
 use Closure;
 
-use BenAllfree\Trackable\Helpers\Site;
-use BenAllfree\Trackable\Models\Contact;
-use BenAllfree\Trackable\Helpers\Visitor;
-
 class InitializeContact
 {
     /**
@@ -22,19 +18,19 @@ class InitializeContact
       $uuid = $request->input('u');
       if($uuid)
       {
-        $c = Contact::findByMeta('uuid', $uuid);
+        $c = \Contact::findByMeta('uuid', $uuid);
         if($c)
         {
-          session('contact_id', $c->id);
+          session(['contact_id'=>$c->id]);
         }
       }
-      if(!session('contact_id') || !Visitor::check())
+      if(!session('contact_id') || !\Visitor::check())
       {
-        $c = Contact::create([
-          'site_id'=>Site::get()->id,
+        $c = \Contact::create([
+          'site_id'=>\Site::get()->id,
         ]);
         session(['contact_id'=>$c->id]);
-        Visitor::check();
+        \Visitor::check();
       }
       
       return $next($request);

@@ -15,7 +15,7 @@ In `app/config.php`:
       BenAllfree\Trackable\TrackableServiceProvider::class
     ]
 
-And optionally alias the models:
+Alias the models:
 
     'aliases' => [
       'Contact'=> \BenAllfree\Trackable\Models\Contact::class,
@@ -24,7 +24,7 @@ And optionally alias the models:
       'ActionMeta'=> \BenAllfree\Trackable\Models\ActionMeta::class,
       'Site'=> \BenAllfree\Trackable\Models\Site::class,
       'SiteHelper'=> \BenAllfree\Trackable\Helpers\Site::class,
-      'Visitor'=> \BenAllfree\Trackable\Models\ActionMeta::class,
+      'Visitor'=> \BenAllfree\Trackable\Helpers\Visitor::class,
     ]
 
 In `app/Http/Kernel.php`, add a middleware group:
@@ -42,7 +42,13 @@ Then use the middleware, such as in `app/routes/web.php`:
     Route::group(['middleware'=>'trackable'], function() {
       ...any routes you want tracked...
     });
-    
+
+Then publish:
+
+    ./artisan vendor:publish
+
+## Extending the Models
+On occasion, you may need to extend the models, particularly the `Site` and `Contact` models with convenience calls or additional fields. 
 ## Registering actions and goals
 
 If you want to record a goal for a contact:

@@ -27,7 +27,7 @@ class InitializeContact
       if(!session('contact_id') || !\Visitor::check())
       {
         $c = \Contact::create([
-          'site_id'=>\Site::get()->id,
+          'site_id'=>\SiteHelper::get()->id,
         ]);
         session(['contact_id'=>$c->id]);
         \Visitor::check();

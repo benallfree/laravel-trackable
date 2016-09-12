@@ -41,7 +41,7 @@ class Contact extends Model
       {
         return $this->_metas[$meta_key] = null;
       }
-      return $this->_metas[$meta_key] = $m->value;
+      return $this->_metas[$meta_key] = $m;
     }
     
     // Set the meta value
@@ -54,7 +54,12 @@ class Contact extends Model
       'is_current'=>true,
     ]);
     $this->_metas[$meta_key] = $m;
-    return $m->value;
+    return $m;
+  }
+  
+  function metav($meta_key, $meta_value=null)
+  {
+    return $this->meta($meta_key, $meta_value)->value;
   }
   
   static function findByMeta($key, $value)
@@ -75,25 +80,25 @@ class Contact extends Model
   
   function getEmailAttribute()
   {
-    return $this->meta('email');
+    return $this->metav('email');
   }
 
   function getFirstNameAttribute()
   {
-    return $this->meta('first_name');
+    return $this->metav('first_name');
   }
   
   function getSubscribedAttribute()
   {
-    return $this->meta('subscribed');
+    return $this->metav('subscribed');
   }
   function setSubscribedAttribute($v)
   {
-    return $this->meta('subscribed',$v);
+    return $this->metav('subscribed',$v);
   }
   function getUuidAttribute()
   {
-    return $this->meta('uuid');
+    return $this->metav('uuid');
   }
   
   function goal($event_name, $data = [])

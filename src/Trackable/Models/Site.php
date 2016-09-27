@@ -13,6 +13,11 @@ class Site extends Model
     return $this->hasManyThrough(\ContactMeta::class, \Contact::class);
   }
   
+  function currentMetas()
+  {
+    return $this->metas()->whereIsCurrent(true);
+  }
+  
   function contacts()
   {
     return $this->hasMany(Contact::class);

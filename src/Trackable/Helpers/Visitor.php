@@ -24,8 +24,12 @@ class Visitor
   
   static function transfer($new_contact)
   {
+    if(!$new_contact)
+    {
+      throw new \Exception("New contact must not be null when transferring visitor to new contact.");
+    }
     $current_contact = self::get();
-    if($new_contact->id == $current_contact->id) return;
+    if($new_contact->id == $current_contact->id) return $current_contact;
     $new_contact->import($current_contact);
     \Action::whereContactId($current_contact->id)->update(['contact_id'=>$new_contact->id]);
     $current_contact->delete();

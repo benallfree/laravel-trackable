@@ -59,7 +59,8 @@ class Contact extends Model
   
   function metav($meta_key, $meta_value=null)
   {
-    return $this->meta($meta_key, $meta_value)->value;
+    $m = $this->meta($meta_key, $meta_value);
+    return $m ? $m->value : null;
   }
   
   static function findByMeta($key, $value)

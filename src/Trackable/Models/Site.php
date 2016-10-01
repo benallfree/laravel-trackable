@@ -25,12 +25,6 @@ class Site extends Model
   
   function contactsWith($meta_key, $meta_value)
   {
-    return $this->contacts()
-      ->select('contacts.*')
-      ->join('contact_metas', 'contact_metas.contact_id', '=', 'contacts.id')
-      ->where('contacts.site_id', '=', $this->id)
-      ->where('contact_metas.key', '=', $meta_key)
-      ->where('contact_metas.value', '=', $meta_value)
-      ->where('contact_metas.is_current', '=', 1);
+    return $this->contacts()->whereMeta($meta_key, '=', $meta_value);
   }
 }

@@ -10,6 +10,6 @@ class ContactMeta extends Model
   
   function contact()
   {
-    return $this->belongsTo(Contact::class);
+    return $this->belongsTo(\Contact::class);
   }
 }

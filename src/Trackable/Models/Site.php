@@ -20,7 +20,7 @@ class Site extends Model
   
   function contacts()
   {
-    return $this->hasMany(Contact::class);
+    return $this->hasMany(\Contact::class);
   }
   
   function contactsWith($meta_key, $meta_value)

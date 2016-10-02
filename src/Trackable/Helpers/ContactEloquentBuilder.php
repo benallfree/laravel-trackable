@@ -9,9 +9,10 @@ class ContactEloquentBuilder extends \Illuminate\Database\Eloquent\Builder
     $this->query
       ->select('contacts.*')
       ->join('contact_metas', 'contact_metas.contact_id', '=', 'contacts.id')
-      ->where('contact_metas.key', '=', $meta_key)
-      ->where('contact_metas.value', '=', $meta_value)
-      ->where('contact_metas.is_current', $op, $v)
+      ->where('contact_metas.key', '=', $k)
+      ->where('contact_metas.value', $op, $v)
+      ->where('contact_metas.is_current', '=', 1)
     ;
+    return $this;
   }
 }

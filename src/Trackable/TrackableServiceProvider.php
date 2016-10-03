@@ -27,6 +27,14 @@ class TrackableServiceProvider extends ServiceProvider {
       require __DIR__.'/routes.php';
     }
     $this->loadViewsFrom(__DIR__.'/views', 'trackable');
+    
+    \Contact::created(function($obj) {
+      if(!$obj->metav('uuid'))
+      {
+        $uuid = sprintf("%d-%s", $obj->id, uniqid());
+        $obj->meta('uuid', $uuid);
+      }
+    });
 	}
 
 	/**

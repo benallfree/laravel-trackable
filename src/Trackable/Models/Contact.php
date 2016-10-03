@@ -65,10 +65,7 @@ class Contact extends Model
   
   static function findByMeta($key, $value)
   {
-    $m = \ContactMeta::whereKey($key)->whereValue($value)->whereIsCurrent(true)->first();
-    if(!$m) return null;
-    $c = $m->contact;
-    return $c;
+    return Contact::whereMeta($key, '=', $value)->first();
   }
   
   function toArray()
@@ -78,25 +75,6 @@ class Contact extends Model
     return $data;
   }
   
-  
-  function getEmailAttribute()
-  {
-    return $this->metav('email');
-  }
-
-  function getFirstNameAttribute()
-  {
-    return $this->metav('first_name');
-  }
-  
-  function getSubscribedAttribute()
-  {
-    return $this->metav('subscribed');
-  }
-  function setSubscribedAttribute($v)
-  {
-    return $this->metav('subscribed',$v);
-  }
   function getUuidAttribute()
   {
     return $this->metav('uuid');
@@ -106,5 +84,11 @@ class Contact extends Model
   {
     return \Action::goal($this->id, $event_name, $data);
   }
+  
+  public function newEloquentBuilder($query)
+  {
+    return new \BenAllfree\Trackable\Helpers\ContactEloquentBuilder($query);
+  }
+  
   
 }

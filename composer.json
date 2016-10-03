@@ -19,7 +19,7 @@
             "BenAllfree\\": "src/"
         },
         "files": [
-          "src/functions.php"
+          "src/Trackable/functions.php"
         ]
     },
     "minimum-stability": "stable"

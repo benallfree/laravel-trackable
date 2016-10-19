@@ -1,6 +1,6 @@
 # Trackable
 
-Trackable uses Drip-style contact tracking and hit logging. Trackable uses cookies to track time on page and unique user activity so you can ask complicated questions like "which of my users has read my article?" or "how long have my registered users spent on page B after reading page A?"
+Trackable uses Drip/Segment-style contact tracking and hit logging. Trackable uses cookies to track time on page and unique user activity so you can ask complicated questions like "which of my users has read my article?" or "how long have my registered users spent on page B after reading page A?"
 
 ## Installation
 
@@ -10,9 +10,11 @@ In your main view, include:
 
 In `app/config.php`:
 
+Find
 
     'providers' => [
-      BenAllfree\Trackable\TrackableServiceProvider::class
+      BenAllfree\Trackable\TrackableServiceProvider::class, // Insert before RouteServiceProvider
+      App\Providers\RouteServiceProvider::class,
     ]
 
 Alias the models:
@@ -47,10 +49,20 @@ Then publish:
 
     ./artisan vendor:publish
 
+## Accessing and retrieving user attributes
+
+    $u = \Visitor::get();   // Get the current user (based on cookie)
+    $u->meta('foo', 'bar'); // Set foo=bar on the Contact model
+    $u->meta('foo');        // Retrieve the value of foo
+    $u->toArray();          // Retrieve a key/value array of all Contact attributes
+
 ## Extending the Models
+
 On occasion, you may need to extend the models, particularly the `Site` and `Contact` models with convenience calls or additional fields. 
+
 ## Registering actions and goals
 
 If you want to record a goal for a contact:
 
     Visitor::get()->goal('some-goal-name', ['meta'=>'data']);
+

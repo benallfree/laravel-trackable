@@ -77,7 +77,13 @@ class Contact extends Model
   
   function getUuidAttribute()
   {
-    return $this->metav('uuid');
+    $v = $this->metav('uuid');
+    if($v) return $v;
+    
+    $uuid = sprintf("%d-%s", $this->id, uniqid());
+    $this->meta('uuid', $uuid);
+    
+    return $uuid;
   }
   
   function goal($event_name, $data = [])

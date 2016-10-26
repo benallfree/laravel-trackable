@@ -15,6 +15,7 @@ class Site
     {
       return self::$site = $s;
     }
+    if(!config('trackable.auto_create_sites')) return null;
     $s = \Site::create([
       'host'=>$host,
     ]);

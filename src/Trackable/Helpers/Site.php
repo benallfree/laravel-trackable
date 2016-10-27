@@ -15,7 +15,7 @@ class Site
     {
       return self::$site = $s;
     }
-    if(!config('trackable.auto_create_sites')) return null;
+    if(!config('trackable.auto_create_sites')) die("Unrecognized domain.");
     $s = \Site::create([
       'host'=>$host,
     ]);

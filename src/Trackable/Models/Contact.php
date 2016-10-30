@@ -91,6 +91,11 @@ class Contact extends Model
     return \Action::goal($this->id, $event_name, $data);
   }
   
+  function actions()
+  {
+    return $this->hasMany(\Action::class);
+  }
+  
   public function newEloquentBuilder($query)
   {
     return new \BenAllfree\Trackable\Helpers\ContactEloquentBuilder($query);

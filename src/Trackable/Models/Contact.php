@@ -45,7 +45,7 @@ class Contact extends Model
     }
     
     // Set the meta value
-    if($this->meta($meta_key)==$meta_value) return $meta_value;
+    if($this->metav($meta_key)==$meta_value) return $meta_value;
     $this->currentMetas()->whereKey($meta_key)->update(['is_current'=>false]);
     $m = \ContactMeta::create([
       'contact_id'=>$this->id, 
@@ -65,7 +65,7 @@ class Contact extends Model
   
   static function findByMeta($key, $value)
   {
-    return Contact::whereMeta($key, '=', $value)->first();
+    return Contact::whereMeta($key, '=', $value)->whereIsCurrent(true)->first();
   }
   
   function toArray()

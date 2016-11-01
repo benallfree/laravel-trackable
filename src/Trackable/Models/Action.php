@@ -25,7 +25,7 @@ class Action extends Model
       \ActionMeta::create([
         'action_id'=>$a->id,
         'key'=>$k,
-        'value'=>$v,
+        'value'=>json_encode($v),
       ]);
     }
     return $a;

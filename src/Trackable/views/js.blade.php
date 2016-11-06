@@ -9,7 +9,7 @@ window.onbeforeunload = function (event) {
   $.ajax({
     type: 'POST',
     url: '{{route('trackable.leave')}}',
-    data: {_token: '{{csrf_token()}}', t: TimeMe.getTimeOnCurrentPageInSeconds(), h: {{session('hit_id')}}},
+    data: {_token: '{{csrf_token()}}', t: TimeMe.getTimeOnCurrentPageInSeconds(), h: Trackable.hit_id},
     dataType: "application/x-www-form-urlencoded",
     async:false
   });

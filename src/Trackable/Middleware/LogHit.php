@@ -6,17 +6,11 @@ use Closure;
 
 class LogHit
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
+  public static $hit = null;
+
     public function handle($request, Closure $next)
     {
-      $h = \Visitor::goal('hit');
-      session(['hit_id'=>$h->id]);
+      self::$hit = \Visitor::goal('hit');
       return $next($request);
     }
 }

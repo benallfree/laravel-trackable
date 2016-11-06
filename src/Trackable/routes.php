@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware'=>'web', 'as'=>'trackable.', 'prefix'=>'trackable'], function() {
+Route::group(['as'=>'trackable.', 'prefix'=>'trackable'], function() {
   Route::get('trackable.js', ['as'=>'js', function() {
     $js_files = [
       'ifvisible.js/src/ifvisible.min.js',

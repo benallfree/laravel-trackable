@@ -12,7 +12,8 @@
     "require": {
         "php": ">=5.5.0",
         "laravel/framework": "5.*",
-        "illuminate/support": "5.*"
+        "illuminate/support": "5.*",
+        "doctrine/dbal": "^2.5"
     },
     "autoload": {
         "psr-4": {

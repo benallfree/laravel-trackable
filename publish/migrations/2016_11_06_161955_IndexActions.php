@@ -13,11 +13,9 @@ class IndexActions extends Migration
      */
     public function up()
     {
-        Schema::table('actions', function (Blueprint $table) {
-          $table->index([\DB::raw('url(2048)')]);
-          $table->index([\DB::raw('user_agent(2048)')]);
-          $table->index([\DB::raw('referer(2048)')]);
-        });
+      \DB::statement(\DB::raw("CREATE INDEX actions_url_index ON actions (url(1024))"));
+      \DB::statement(\DB::raw("CREATE INDEX actions_user_agent_index ON actions (user_agent(1024))"));
+      \DB::statement(\DB::raw("CREATE INDEX actions_referer_index ON actions (referer(1024))"));
     }
 
     /**

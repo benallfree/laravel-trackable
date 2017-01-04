@@ -45,7 +45,7 @@ class Contact extends Model
     }
     
     // Set the meta value
-    if($this->metav($meta_key)==$meta_value) return $meta_value;
+    if($this->metav($meta_key)===$meta_value) return $meta_value;
     $this->currentMetas()->whereKey($meta_key)->update(['is_current'=>false]);
     $m = \ContactMeta::create([
       'contact_id'=>$this->id, 
@@ -101,5 +101,30 @@ class Contact extends Model
     return new \BenAllfree\Trackable\Helpers\ContactEloquentBuilder($query);
   }
   
-  
+  function importAndDelete($src_contact)
+  {
+    $target_contact = $this;
+    $f = function() use($src_contact, $target_contact) {
+      $sql = "
+        update contact_metas src join contact_metas dst on
+            src.contact_id = {$src_contact->id} 
+          and 
+            dst.contact_id = {$target_contact->id} 
+          and 
+            src.key = dst.key 
+          and
+            src.is_current=1 
+          and
+            dst.is_current=1
+          set 
+            src.is_current = src.created_at > dst.created_at,
+            dst.is_current = src.created_at <= dst.created_at
+      ";
+      \DB::statement(\DB::raw($sql));
+      \Action::whereContactId($src_contact->id)->update(['contact_id'=>$target_contact->id]);
+      $src_contact->metas()->update(['contact_id'=>$target_contact->id]);
+      $src_contact->delete();
+    };
+    \DB::transaction($f);
+  }
 }

@@ -14,7 +14,8 @@ class Visitor
   static function get()
   {
     if(self::$visitor) return self::$visitor;
-    return self::$visitor = \Contact::find(session('contact_id'));
+    self::$visitor = \Contact::find(session('contact_id'));
+    return self::$visitor;
   }
 
   static function check()
@@ -22,19 +23,17 @@ class Visitor
     return self::get() != null;
   }
   
-  static function transfer($new_contact)
+  static function transfer($target_contact)
   {
-    if(!$new_contact)
+    if(!$target_contact)
     {
-      throw new \Exception("New contact must not be null when transferring visitor to new contact.");
+      throw new \Exception("Target contact must not be null when transferring visitor to another contact.");
     }
-    $current_contact = self::get();
-    if($new_contact->id == $current_contact->id) return $current_contact;
-    $new_contact->import($current_contact);
-    \Action::whereContactId($current_contact->id)->update(['contact_id'=>$new_contact->id]);
-    $current_contact->delete();
-    session(['contact_id'=>$new_contact->id]);
-    return self::$visitor = $new_contact;
+    $src_contact = self::get();
+    if($target_contact->id == $src_contact->id) return $src_contact;
+    $target_contact->importAndDelete($src_contact);
+    session(['contact_id'=>$target_contact->id]);
+    return self::$visitor = $target_contact;
   }
   
 }

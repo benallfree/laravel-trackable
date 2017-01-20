@@ -17,7 +17,7 @@ class Action extends Model
       'ip_address'=>\Request::server('REMOTE_ADDR'),
       'user_agent'=>\Request::server('HTTP_USER_AGENT'),
       'referer'=>\Request::server('HTTP_REFERER'),
-      'url'=>\Request::url(),
+      'url'=>\Request::fullUrl(),
       'request_method'=>\Request::server('REQUEST_METHOD'),
     ]);
     foreach($data as $k=>$v)

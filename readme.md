@@ -6,7 +6,7 @@ Trackable uses Drip/Segment-style contact tracking and hit logging. Trackable us
 
 In your main view, include:
 
-    <script src="{{route('trackable.js')}}"></script>
+    -echo(\Trackable::scripts());
 
 In `app/config.php`:
 
@@ -27,6 +27,7 @@ Alias the models:
       'Site'=> \BenAllfree\Trackable\Models\Site::class,
       'SiteHelper'=> \BenAllfree\Trackable\Helpers\Site::class,
       'Visitor'=> \BenAllfree\Trackable\Helpers\Visitor::class,
+      'Trackable'=> \BenAllfree\Trackable\Helpers\Trackable::class,
     ]
 
 In `app/Http/Kernel.php`, add a middleware group:

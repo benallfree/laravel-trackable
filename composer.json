@@ -1,27 +1,32 @@
 {
-    "name": "benallfree/laravel-trackable",
-    "description": "Multisite visitor tracking.",
-    "keywords": ["laravel", "tracking", "stats"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Ben Allfree",
-            "email": "ben@benallfree.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.5.0",
-        "laravel/framework": "5.*",
-        "illuminate/support": "5.*",
-        "doctrine/dbal": "^2.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "BenAllfree\\": "src/"
-        },
-        "files": [
-          "src/Trackable/functions.php"
-        ]
-    },
-    "minimum-stability": "stable"
+	"name": "benallfree/laravel-trackable",
+	"description": "Multisite visitor tracking.",
+	"keywords": [
+		"laravel",
+		"tracking",
+		"stats"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Ben Allfree",
+			"email": "ben@benallfree.com"
+		}
+	],
+	"require": {
+		"php": ">=5.5.0",
+		"laravel/framework": "5.*",
+		"illuminate/support": "5.*",
+		"doctrine/dbal": "^2.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"BenAllfree\\": "src/"
+		},
+		"files": [
+			"src/Trackable/functions.php"
+		]
+	},
+	"minimum-stability": "stable",
+	"version": "0.0.0"
 }

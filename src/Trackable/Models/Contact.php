@@ -36,17 +36,17 @@ class Contact extends Model
     if($meta_value===null)
     {
       if(isset($this->_metas[$meta_key])) return $this->_metas[$meta_key];
-      $m = $this->currentMetas()->whereKey($meta_key)->first();
+      $m = $this->currentMetas()->where("key", "=", $meta_key)->first();
       if(!$m)
       {
         return $this->_metas[$meta_key] = null;
       }
       return $this->_metas[$meta_key] = $m;
     }
-    
+
     // Set the meta value
     if($this->metav($meta_key)===$meta_value) return $meta_value;
-    $this->currentMetas()->whereKey($meta_key)->update(['is_current'=>false]);
+    $this->currentMetas()->where("key", "=", $meta_key)->update(['is_current'=>false]);
     $m = \ContactMeta::create([
       'contact_id'=>$this->id, 
       'key'=>$meta_key, 

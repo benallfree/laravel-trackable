@@ -2,28 +2,26 @@
 
 namespace BenAllfree\Trackable\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Site extends Model
+class Site extends \TrackableModelBase
 {
   protected $fillable = ['host'];
-  
-  function metas()
+
+  public function metas()
   {
     return $this->hasManyThrough(\ContactMeta::class, \Contact::class);
   }
-  
-  function currentMetas()
+
+  public function currentMetas()
   {
     return $this->metas()->whereIsCurrent(true);
   }
-  
-  function contacts()
+
+  public function contacts()
   {
     return $this->hasMany(\Contact::class);
   }
-  
-  function contactsWith($meta_key, $meta_value)
+
+  public function contactsWith($meta_key, $meta_value)
   {
     return $this->contacts()->whereMeta($meta_key, '=', $meta_value);
   }
